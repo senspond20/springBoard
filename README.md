@@ -4,6 +4,7 @@
 + Spring Data JPA
 + Thymeleaf
 + Lombok
++ Swagger 2.9
 
 
 ### **JPA paging**

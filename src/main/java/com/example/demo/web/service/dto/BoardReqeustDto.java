@@ -1,7 +1,5 @@
 package com.example.demo.web.service.dto;
 
-import org.springframework.data.domain.Sort;
-
 import lombok.Getter;
 
 /**
@@ -11,7 +9,7 @@ import lombok.Getter;
 public class BoardReqeustDto {
     private int page;
     private int size;
-    private Sort sort;
+    private String sort;
 
     public BoardReqeustDto(int page, int size, String sort){
 //  this.page = (page == 0 ) ? 0 : page - 1; // pageable 기본적으로 zero Index
@@ -19,8 +17,6 @@ public class BoardReqeustDto {
 
         this.page = page;
         this.size = size;
-        this.sort = sort.toLowerCase().equals("asc") 
-                    ? Sort.by("id").ascending() 
-                    : Sort.by("id").descending();
+        this.sort = sort; 
     }
 }
