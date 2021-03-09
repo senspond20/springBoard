@@ -1,5 +1,6 @@
 package com.example.demo.web.service.dto;
 
+import com.example.demo.common.dto.ResponseData;
 import com.example.demo.web.entity.Board;
 
 import lombok.Getter;
@@ -8,7 +9,7 @@ import lombok.Getter;
  * @author        gun
  */
 @Getter
-public class BoardResponseDto {
+public class BoardResponseDto implements ResponseData{
 	
 	private Long id;
 	private String title;

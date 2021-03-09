@@ -31,12 +31,12 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public Long update(BoardUpdateRequestDto boardUpdateRequestDto) {
+    public BoardResponseDto update(BoardUpdateRequestDto boardUpdateRequestDto) {
         Long id = boardUpdateRequestDto.getId();
     	Board board = boardRepository.findById(id)
 				                     .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
 		board.update(boardUpdateRequestDto.getTitle(), boardUpdateRequestDto.getContent());
-        return id;
+        return new BoardResponseDto(boardRepository.save(board));
     }
 
     @Override

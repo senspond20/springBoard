@@ -2,6 +2,8 @@ package com.example.demo.web.controller;
 
 import java.util.List;
 
+import com.example.demo.common.dto.ResponseData;
+import com.example.demo.common.dto.ResponseMessage;
 import com.example.demo.web.entity.Board;
 import com.example.demo.web.service.BoardService;
 import com.example.demo.web.service.dto.BoardReqeustDto;
@@ -12,6 +14,7 @@ import com.example.demo.web.service.dto.BoardUpdateRequestDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +44,14 @@ public class BoardController {
         return boardService.getBoardById(id);
     }
 
+
+    @GetMapping("/test/{bNo}")
+    public ResponseEntity<?> getBoard2(@PathVariable(name = "bNo") Long id){
+        ResponseData data = boardService.getBoardById(id);
+        return ResponseEntity.ok().body(new ResponseMessage(data));
+    }
+
+
     // http://localhost:8080/api/board?page=1&size=10&sort=desc
     @GetMapping("")
     public Page<BoardResponseDto> getBoardList(BoardReqeustDto boardReqeustDto){
@@ -53,7 +64,7 @@ public class BoardController {
     
     // update
     @PutMapping("")
-    public Long updateBoard(@RequestBody BoardUpdateRequestDto boardUpdateRequestDto){
+    public BoardResponseDto updateBoard(@RequestBody BoardUpdateRequestDto boardUpdateRequestDto){
         return boardService.update(boardUpdateRequestDto);
     }
 

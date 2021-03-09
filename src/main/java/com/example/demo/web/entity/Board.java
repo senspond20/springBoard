@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+// import org.hibernate.annotations.ColumnDefault;
+// import org.springframework.boot.context.properties.bind.DefaultValue;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -36,15 +39,22 @@ public class Board {
 	@Column(columnDefinition = "TEXT", nullable = false)
 	private String content;
 	
+	@Column(name = "author")
 	private String author;
-
+	
+	// @Column(name = "status", columnDefinition = "CHAR(1)")
+	// @ColumnDefault("Y") // Y : 공개 , N : 비공개
+	// private String status;
+	
 	@Builder // 빌더패턴 적용
 	public Board(String title, String content, String author) {
 		super();
 		this.title = title;
 		this.content = content;
 		this.author = author;
+		// this.status = "Y";
 	}
+
 	// update 수정 setter대신
 	public void update(String title, String content) {
 		this.title = title;

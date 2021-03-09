@@ -17,7 +17,7 @@ public interface BoardService {
     
     BoardResponseDto insert(BoardSaveRequestDto boardSaveRequestDto);
     
-    Long update(BoardUpdateRequestDto boardUpdateRequestDto);
+    BoardResponseDto update(BoardUpdateRequestDto boardUpdateRequestDto);
     
     List<Board> getBoardListAll();
 

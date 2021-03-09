@@ -13,13 +13,11 @@ public class WebMvcConfig implements WebMvcConfigurer{
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/board").setViewName("board");
         registry.addViewController("/about").setViewName("about");
-      
        // WebMvcConfigurer.super.addViewControllers(registry);
     }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-
         registry.addMapping("/api/**")
                 .allowedOrigins("*")
                 .allowedHeaders("*")
