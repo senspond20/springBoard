@@ -7,7 +7,7 @@ import lombok.Getter;
 /**
  * @author        gun
  */
- @Getter
+@Getter
 public class BoardReqeustDto {
     private int page;
     private int size;

@@ -53,11 +53,6 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public Page<BoardResponseDto> getBoardList(Pageable pageable) {
-    
-        //int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
-		//pageable = PageRequest.of(page, (int) pageable.getOffset(), Sort.by("id").descending());
-
-		// pageable.getOffset() 기본 20
         Page<Board> p = boardRepository.findAll(pageable);
 		return p.map(item-> new BoardResponseDto(item));
     }
