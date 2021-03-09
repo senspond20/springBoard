@@ -3,6 +3,9 @@ package com.example.demo.web.service.dto;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * @author        gun
+ */
 @Getter
 public class BoardUpdateRequestDto {
     private Long id;

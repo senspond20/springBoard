@@ -4,6 +4,9 @@ import com.example.demo.web.entity.Board;
 
 import lombok.Getter;
 
+/**
+ * @author        gun
+ */
 @Getter
 public class BoardResponseDto {
 	

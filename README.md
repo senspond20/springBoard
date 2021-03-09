@@ -3,5 +3,6 @@
 + H2 DataBase
 + Spring Data JPA
 + Thymeleaf
++ Lombok
 
 
