@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +31,8 @@ public class BoardController {
     
     private final BoardService boardService;
 
-    // select
+    // --------------  select -------------------
+
     @GetMapping("/all")
     public List<Board> getBoardListAll(){
         return boardService.getBoardListAll();
@@ -38,7 +40,7 @@ public class BoardController {
 
     // http://localhost:8080/api/board/5
     @GetMapping("/{bNo}")
-    public Board getBoard(@PathVariable(name = "bNo") Long id){
+    public Board getBoardDetail(@PathVariable(name = "bNo") Long id){
         return boardService.getBoardById(id);
     }
 
@@ -57,16 +59,25 @@ public class BoardController {
        return boardService.getBoardList(pageable);
     }
     
-    // update
-    @PutMapping("")
+    // --------------  update -------------------
+    
+    @PutMapping("/update")
     public BoardResponseDto updateBoard(@RequestBody BoardUpdateRequestDto boardUpdateRequestDto){
         return boardService.update(boardUpdateRequestDto);
     }
 
-    // insert
-    @PostMapping("")
+    // --------------  insert -------------------
+
+    @PostMapping("/insert")
     public BoardResponseDto insertBoard(@RequestBody BoardSaveRequestDto boardSaveRequestDto){
         return boardService.insert(boardSaveRequestDto);
+    }
+
+    // --------------  delete -------------------
+    
+    @DeleteMapping("/delete")
+    public void deleteBoard(Long id){
+        
     }
 
 
