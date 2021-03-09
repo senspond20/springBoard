@@ -22,7 +22,7 @@ public class InitRunner implements CommandLineRunner{
     @Autowired
     private BoardService boardService;
 
-    private final int dummyCount = 1000;
+    private final int dummyCount = 300;
     Logger logger = LoggerFactory.getLogger(InitRunner.class);
 
 
@@ -35,6 +35,7 @@ public class InitRunner implements CommandLineRunner{
 
 
         logger.info("insertBoardDummyData : {}", dummyCount);
+
         insertBoardDummyData(dummyCount);
     }
     

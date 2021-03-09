@@ -1,10 +1,15 @@
 package com.example.demo.web.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 // import org.hibernate.annotations.ColumnDefault;
@@ -30,7 +35,7 @@ import lombok.ToString;
 public class Board {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "board_id")
 	private Long id;
 	
 	@Column(length = 155, nullable = false)
@@ -41,6 +46,10 @@ public class Board {
 	
 	@Column(name = "author")
 	private String author;
+
+	// @OneToMany
+	// @JoinTable(name = "board_reply")
+	// private List<BoardReply> reply = new ArrayList<>();
 	
 	// @Column(name = "status", columnDefinition = "CHAR(1)")
 	// @ColumnDefault("Y") // Y : 공개 , N : 비공개

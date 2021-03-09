@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -40,17 +41,9 @@ public class BoardController {
 
     // http://localhost:8080/api/board/5
     @GetMapping("/{bNo}")
-    public BoardResponseDto getBoard(@PathVariable(name = "bNo") Long id){
+    public Board getBoard(@PathVariable(name = "bNo") Long id){
         return boardService.getBoardById(id);
     }
-
-
-    @GetMapping("/test/{bNo}")
-    public ResponseEntity<?> getBoard2(@PathVariable(name = "bNo") Long id){
-        ResponseData data = boardService.getBoardById(id);
-        return ResponseEntity.ok().body(new ResponseMessage(data));
-    }
-
 
     // http://localhost:8080/api/board?page=1&size=10&sort=desc
     @GetMapping("")

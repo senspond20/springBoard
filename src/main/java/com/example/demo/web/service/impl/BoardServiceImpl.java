@@ -45,10 +45,10 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public BoardResponseDto getBoardById(Long id) {
-        Board entity = boardRepository.findById(id)
+    public Board getBoardById(Long id) {
+        Board board = boardRepository.findById(id)
                                       .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-        return new BoardResponseDto(entity);
+        return board;
     }
 
     @Override

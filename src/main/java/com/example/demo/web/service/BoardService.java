@@ -21,7 +21,8 @@ public interface BoardService {
     
     List<Board> getBoardListAll();
 
-    BoardResponseDto getBoardById(Long id);
+    // detail
+    Board getBoardById(Long id);
 
     Page<BoardResponseDto> getBoardList(Pageable pageable);
 }
