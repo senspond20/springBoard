@@ -1,4 +1,7 @@
 # Spring JPA - BOARD
 
-+ H2
-+ JPA
++ H2 DataBase
++ Spring Data JPA
++ Thymeleaf
+
+
