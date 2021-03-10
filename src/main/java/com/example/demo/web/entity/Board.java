@@ -3,11 +3,13 @@ package com.example.demo.web.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -51,7 +53,9 @@ public class Board {
 
 	// @OneToMany
 	// @JoinTable(name = "board_reply")
-	// private List<BoardReply> reply = new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "board_id")  // <-- 여기!!
+	private List<BoardReply> reply = new ArrayList<>();
 	
 	// @Column(name = "status", columnDefinition = "CHAR(1)")
 	// @ColumnDefault("Y") // Y : 공개 , N : 비공개

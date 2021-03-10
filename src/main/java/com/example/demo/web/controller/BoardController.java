@@ -31,6 +31,7 @@ public class BoardController {
     
     private final BoardService boardService;
 
+    
     // --------------  select -------------------
 
     @GetMapping("/all")
