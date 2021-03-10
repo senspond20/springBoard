@@ -2,10 +2,13 @@ package com.example.demo.common.configuration;
 
 import java.sql.DatabaseMetaData;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 import javax.sql.DataSource;
 
+import com.example.demo.web.service.BoardReplyService;
 import com.example.demo.web.service.BoardService;
+import com.example.demo.web.service.dto.BoardReplySaveRequestDto;
 import com.example.demo.web.service.dto.BoardSaveRequestDto;
 
 import org.slf4j.Logger;
@@ -22,6 +25,9 @@ public class InitRunner implements CommandLineRunner{
     @Autowired
     private BoardService boardService;
 
+    @Autowired
+    private BoardReplyService boardReplyService;
+
     private final int dummyCount = 300;
     Logger logger = LoggerFactory.getLogger(InitRunner.class);
 
@@ -33,15 +39,18 @@ public class InitRunner implements CommandLineRunner{
         logger.info("{}", md.getURL());
         logger.info("{}", md.getUserName());
 
-
         logger.info("insertBoardDummyData : {}", dummyCount);
-
         insertBoardDummyData(dummyCount);
     }
     
     private void insertBoardDummyData(int count){
-        IntStream.rangeClosed(1, count).forEach(i -> {
+
+        LongStream.rangeClosed(1, count).forEach(i -> {
             boardService.insert(new BoardSaveRequestDto("제목입니다" + i, "내용입니다" + i));
+
+            IntStream.rangeClosed(1, 3).forEach(n->{
+                boardReplyService.save(new BoardReplySaveRequestDto(i,"답변" + n));
+            });
         });
     }
 

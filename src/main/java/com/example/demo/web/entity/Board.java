@@ -70,8 +70,8 @@ public class Board {
 	// private char status
 	// ==> "\u0000", 로 들어간다
 
-	@Column(name ="status", columnDefinition = "CHAR(1) NOT NULL DEFAULT 'Y'")
 	// Y : 공개 , N : 비공개
+	@Column(name ="status", columnDefinition = "CHAR(1) NOT NULL DEFAULT 'Y'")
 	private String status;
 
 	private LocalDateTime createTime;
