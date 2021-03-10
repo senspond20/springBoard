@@ -12,6 +12,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
+
 // import org.hibernate.annotations.ColumnDefault;
 // import org.springframework.boot.context.properties.bind.DefaultValue;
 

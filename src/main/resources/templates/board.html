@@ -5,8 +5,152 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .table .board{
+            width: 960px;
+            margin: 0 auto;
+        }
+        .pagination{
+            display: flex;
+        }
+        .pagination li{
+            width: 40px;
+            list-style: none;
+        }
+        .pagination li a{
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
     게시판
+        <table class="table board">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>title</th>
+                    <th>author</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+ 
+        <ul class="pagination"></ul>
+   
+
+        <select name="" id="changeSize">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+        </select>    
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // getBoard(p.getDate());
+            var p = new Paging();
+            getBoard(p.getData());
+            p.drawPagination();
+            changeSzie(p);
+        });
+        
+        
+        function changeSzie(paging){
+            $('#changeSize').on('change',function(){
+            console.log($(this).val())
+
+            paging.size = Number($(this).val());
+            var data = paging.getData();
+            console.log(data)
+            getBoard(data);    
+        });
+        }
+  
+    
+        function Paging(){
+            this.page = 1;
+            this.size = 10;
+            this.sort = "desc"
+            this.block_size = 7;
+            this.block_num = 1;
+        }
+        Paging.prototype.nextPage = function(){
+            this.page = this.page + 1;
+        };
+        Paging.prototype.getData = function(){
+            return{
+                page : this.page,
+                size : this.size,
+                sort : this.sort
+            }
+        }
+        Paging.prototype.drawPagination = function(){
+            for(var i = 1; i <= this.block_size; i ++){
+                $('.pagination').append(`<li><a href="#">${i}</a></li>`)
+            }
+            var data = this.getData();
+            $('.pagination li').on('click',function(){
+                data.page = Number($(this).find('a').text());
+                getBoard(data);
+            })
+        }
+    
+        Paging.prototype.getBoard = function(){
+            $.ajax({
+                url :'/api/board',
+                method :'get',
+                data : {
+                    page : this.page,
+                    size : this.size,
+                    sort : this.sort
+                }
+            }).done(function(data){
+                console.log(data)
+                var item =data.content;
+                var pageable = data.pageable;
+                console.log(pageable.pageNumber);
+
+                var $text = '';
+                item.forEach(element => {
+                    $text +=`<tr>
+                                <td>${element.id}</td>
+                                <td>${element.title}</td>
+                                <td>${element.author}</td>
+                             </tr>`;
+                    $('tbody').html($text);
+                });
+            }).fail(function(error){
+                console.log(error)
+            })
+        }
+
+        function getBoard(data){
+            $.ajax({
+                url :'/api/board',
+                method :'get',
+                data : data
+            }).done(function(data){
+                console.log(data)
+                var item =data.content;
+                var pageable = data.pageable;
+                console.log(pageable.pageNumber);
+
+                var $text = '';
+                item.forEach(element => {
+                    $text +=`<tr>
+                                <td>${element.id}</td>
+                                <td>${element.title}</td>
+                                <td>${element.author}</td>
+                             </tr>`;
+                    $('tbody').html($text);
+                });
+            }).fail(function(error){
+                console.log(error)
+            })
+        };
+
+
+    </script>
 </body>
 </html>
