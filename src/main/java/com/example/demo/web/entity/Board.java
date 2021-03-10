@@ -1,5 +1,8 @@
 package com.example.demo.web.entity;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 // import org.hibernate.annotations.ColumnDefault;
 // import org.springframework.boot.context.properties.bind.DefaultValue;
@@ -34,6 +39,8 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@DynamicInsert
+@DynamicUpdate 
 @Table(name ="board")
 @ToString
 public class Board {
@@ -57,9 +64,20 @@ public class Board {
 	@JoinColumn(name = "board_id")  // <-- 여기!!
 	private List<BoardReply> reply = new ArrayList<>();
 	
-	// @Column(name = "status", columnDefinition = "CHAR(1)")
-	// @ColumnDefault("Y") // Y : 공개 , N : 비공개
-	// private String status;
+
+	// @Column(name = "status", length = 1)
+	// @ColumnDefault("'Y'") 
+	// private char status
+	// ==> "\u0000", 로 들어간다
+
+	@Column(name ="status", columnDefinition = "CHAR(1) NOT NULL DEFAULT 'Y'")
+	// Y : 공개 , N : 비공개
+	private String status;
+
+	private LocalDateTime createTime;
+
+	@Column(name ="tiemstamp", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+	private Timestamp Timestamp;
 	
 	@Builder // 빌더패턴 적용
 	public Board(String title, String content, String author) {
@@ -67,6 +85,7 @@ public class Board {
 		this.title = title;
 		this.content = content;
 		this.author = author;
+		this.createTime = LocalDateTime.now();
 		// this.status = "Y";
 	}
 

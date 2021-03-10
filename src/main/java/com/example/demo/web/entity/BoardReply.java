@@ -7,14 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,8 +27,8 @@ public class BoardReply {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "reply_id")
-	private Long id;
+	@Column(name = "reply_id", columnDefinition = "INT(11)")
+	private Long no;
 
 	// @ManyToOne
 	// @JoinColumn(name = "board_id")
@@ -43,8 +38,7 @@ public class BoardReply {
 	@Column(columnDefinition = "TEXT", nullable = false)
 	private String reply;
 
-	@Column(name = "timestamp", columnDefinition = "tiemstamp DEFAULT NOT NULL CURRENT_TIMESTAMP")
-	// @ColumnDefault("'CURRENT_TIMESTAMP()'")
+	@Column(name ="tiemstamp", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	private Timestamp Timestamp;
 
 	@Builder
