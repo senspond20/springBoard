@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -18,14 +19,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
 
 // import org.hibernate.annotations.ColumnDefault;
 // import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -74,10 +78,13 @@ public class Board {
 	@Column(name ="status", columnDefinition = "CHAR(1) NOT NULL DEFAULT 'Y'")
 	private String status;
 
-	private LocalDateTime createTime;
+	@CreationTimestamp
+	private Date createTime;
 
-	@Column(name ="tiemstamp", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-	private Timestamp Timestamp;
+	// @Column(name ="tiemstamp", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+
+	@UpdateTimestamp
+	private Timestamp updateTime;
 	
 	@Builder // 빌더패턴 적용
 	public Board(String title, String content, String author) {
@@ -85,7 +92,7 @@ public class Board {
 		this.title = title;
 		this.content = content;
 		this.author = author;
-		this.createTime = LocalDateTime.now();
+		// this.createTime = LocalDateTime.now();
 		// this.status = "Y";
 	}
 

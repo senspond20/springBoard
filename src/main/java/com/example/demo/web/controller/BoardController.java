@@ -63,14 +63,14 @@ public class BoardController {
     // --------------  update -------------------
     
     @PutMapping("/update")
-    public BoardResponseDto updateBoard(@RequestBody BoardUpdateRequestDto boardUpdateRequestDto){
+    public Board updateBoard(@RequestBody BoardUpdateRequestDto boardUpdateRequestDto){
         return boardService.update(boardUpdateRequestDto);
     }
 
     // --------------  insert -------------------
 
     @PostMapping("/insert")
-    public BoardResponseDto insertBoard(@RequestBody BoardSaveRequestDto boardSaveRequestDto){
+    public Board insertBoard(@RequestBody BoardSaveRequestDto boardSaveRequestDto){
         return boardService.insert(boardSaveRequestDto);
     }
 

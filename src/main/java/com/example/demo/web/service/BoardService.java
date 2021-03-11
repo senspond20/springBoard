@@ -15,9 +15,9 @@ import org.springframework.data.domain.Pageable;
  */
 public interface BoardService {
     
-    BoardResponseDto insert(BoardSaveRequestDto boardSaveRequestDto);
+    Board insert(BoardSaveRequestDto boardSaveRequestDto);
     
-    BoardResponseDto update(BoardUpdateRequestDto boardUpdateRequestDto);
+    Board update(BoardUpdateRequestDto boardUpdateRequestDto);
     
     List<Board> getBoardListAll();
 

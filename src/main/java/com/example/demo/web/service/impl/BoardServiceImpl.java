@@ -25,18 +25,20 @@ public class BoardServiceImpl implements BoardService{
     private final BoardRepository boardRepository;
 
     @Override
-    public BoardResponseDto insert(BoardSaveRequestDto boardSaveRequestDto) {
+    public Board insert(BoardSaveRequestDto boardSaveRequestDto) {
         Board entity = boardRepository.save(boardSaveRequestDto.toEntity());
-        return new BoardResponseDto(entity);
+        return entity;
+        // return new BoardResponseDto(entity);
     }
 
     @Override
-    public BoardResponseDto update(BoardUpdateRequestDto boardUpdateRequestDto) {
+    public Board update(BoardUpdateRequestDto boardUpdateRequestDto) {
         Long id = boardUpdateRequestDto.getId();
     	Board board = boardRepository.findById(id)
 				                     .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
 		board.update(boardUpdateRequestDto.getTitle(), boardUpdateRequestDto.getContent());
-        return new BoardResponseDto(boardRepository.save(board));
+        return boardRepository.save(board);
+        // return new BoardResponseDto(boardRepository.save(board));
     }
 
     @Override

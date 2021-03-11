@@ -26,12 +26,13 @@ public class BoardControllerTest {
     // private MockMvc mockMvc;
 
     @MockBean
-    private BoardService BoardService;
+    private BoardService boardService;
 
     @Test
     public void test(){
         BoardSaveRequestDto dto = new BoardSaveRequestDto("제목입니다", "내용입니다.");
-        BoardResponseDto board = BoardService.insert(dto);
+        boardService.insert(dto);
+
        
     }
 
