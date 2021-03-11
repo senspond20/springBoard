@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jqeury.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+    <form action="#" id ="frm" role="form" method="post"
+            enctype="multipart/form-data">
+        <input type ="text" name="title" />
+        <textarea name="content"></textarea>
+        <input type ="submit" value="전송"/>
+    </form>
+    <script>
+        var form = $('#frm') 	
+        $('#frm').submit(function(e){
+            e.preventDefault();
+            var form_data = new FormData($(this));
+            console.log(form_data);
+        })
+
+    </script>
+</body>
+</html>

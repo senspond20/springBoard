@@ -15,11 +15,11 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
+
 	@Bean
 	public CommandLineRunner runner(){
 		return new InitRunner();
 	}
-
 	@Bean 
 	public PageableHandlerMethodArgumentResolverCustomizer customize() { 
 		return p -> { 
@@ -29,6 +29,7 @@ public class DemoApplication {
 			// size=10 
 		}; 
 	}
+
 
 
 }
