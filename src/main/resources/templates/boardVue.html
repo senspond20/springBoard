@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <table id ="board">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Title</th>
+                <th>Author</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for='post in posts'>
+                <td>{{post.id}}</td>
+                <td>{{post.title}}</td>
+                <td>{{post.author}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        <button @click="prev">Previous</button> || <button @click="next">Next</button>
+    </p>
+
+    <script>
+        var board = new Vue({
+            el : '#board',
+            data :{
+                posts : [],
+                currentPage : 0
+            },
+            methods :{
+                prev : function(){
+                    this.currentPage--;
+                },
+                next : function(){
+                    this.currentPage++;
+                },
+                getBoard : function(){
+                    fetch('/api/board/all')
+                    .then(response => response.json())
+                    .then((json)=>{
+                        json.forEach(element => {
+                            this.posts.push({
+                                id : element.id,
+                                title : element.title,
+                                author : element.author
+                            })
+                        });
+                   
+                        console.log(json)
+                    }).catch((error)=>{
+                        console.log(error)
+                    })
+                }
+            }
+        });
+        board.getBoard();
+    </script>
+</body>
+</html>

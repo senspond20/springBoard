@@ -12,7 +12,8 @@ public class WebMvcConfig implements WebMvcConfigurer{
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/board").setViewName("board");
-        registry.addViewController("/board/posting").setViewName("post");
+        registry.addViewController("/board/vue").setViewName("boardVue");
+        registry.addViewController("/board/posting").setViewName("posting");
         registry.addViewController("/about").setViewName("about");
        // WebMvcConfigurer.super.addViewControllers(registry);
     }

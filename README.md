@@ -27,9 +27,11 @@ public PageableHandlerMethodArgumentResolverCustomizer customize() {
 
 ref : https://velog.io/@minsangk/%EC%BB%A4%EC%84%9C-%EA%B8%B0%EB%B0%98-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-Cursor-based-Pagination-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0
 
+ref: https://wonyong-jang.github.io/database/2020/09/06/DB-Pagination.html
 
 ## Paging
 ### **Offset Based Pagination**
++ Oracle : https://jeong-pro.tistory.com/88
 
 + DB의 offset 쿼리를 사용하여 '페이지' 단위로 구분하여 요청/응답하게 구현
 
@@ -59,7 +61,6 @@ SELECT * FROM BOARD ORDER BY ID DESC LIMIT 20, 10;
 SELECT * FROM BOARD ORDER BY ID DESC LIMIT 10;
 SELECT * FROM BOARD WHERE ID < {이전에 조회한 마지막 id} ORDER BY ID DESC LIMIT 10;
 ```
-
 
 
 
