@@ -59,6 +59,22 @@ public class BoardController {
 
        return boardService.getBoardList(pageable);
     }
+
+    @GetMapping("/user/{author}")
+    // @GetMapping("/user")
+    public Page<BoardResponseDto> getBoardList(BoardReqeustDto boardReqeustDto, @PathVariable String author){
+
+       Sort sort = boardReqeustDto.getSort().toLowerCase().equals("asc") 
+                    ? Sort.by("id").ascending() 
+                    : Sort.by("id").descending();
+
+       Pageable pageable = PageRequest.of(boardReqeustDto.getPage(), 
+                                          boardReqeustDto.getSize(),
+                                          sort);
+
+       return boardService.getBoardList(pageable, author);
+    }
+
     
     // --------------  update -------------------
     

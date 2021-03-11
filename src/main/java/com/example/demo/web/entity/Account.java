@@ -1,5 +1,7 @@
 package com.example.demo.web.entity;
 import java.util.Date;
+import java.util.Random;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,6 +40,9 @@ public class Account {
     @Column(name ="EMAIL", unique = true, nullable = false)
     private String email;
 
+    @Column(name="USER_NAME")
+    private String userName;
+
     @Column(name ="PASSWORD", length = 120, nullable = false)
     private String password;
 
@@ -45,7 +50,9 @@ public class Account {
     @Column(name ="ROLE", length = 15, nullable = false)
     private String authority;
 
-    @Column(name ="JOIN_DATE", columnDefinition = "varchar(45) DEFAULT CURRENT_DATE()", nullable = false)
+
+    // @Column(name ="JOIN_DATE", columnDefinition = "varchar(45) DEFAULT CURRENT_DATE()", nullable = false)
+    @Column(name ="JOIN_DATE")
     @CreationTimestamp
     private Date joinDate;
 
@@ -56,6 +63,7 @@ public class Account {
         Assert.hasText(authority, "@@@@@@@ : authority must not be empty");
 
         this.email = email;
+        this.userName = "User" + UUID.randomUUID();
         this.password = password;
         this.authority = authority;
         // this.joinDate = LocalDate.now();

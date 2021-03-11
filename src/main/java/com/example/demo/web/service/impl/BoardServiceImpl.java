@@ -59,6 +59,10 @@ public class BoardServiceImpl implements BoardService{
 		return p.map(item-> new BoardResponseDto(item));
     }
 
-
+    @Override
+    public Page<BoardResponseDto> getBoardList(Pageable pageable, String author) {
+        Page<Board> p = boardRepository.findByAuthor(pageable, author);
+		return p.map(item-> new BoardResponseDto(item));
+    }
     
 }

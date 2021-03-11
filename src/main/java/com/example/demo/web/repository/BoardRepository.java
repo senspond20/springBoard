@@ -22,7 +22,11 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
 	
 	Page<Board> findAll(Pageable pageable);
 
-	// List<Board> findByStatus(String status);
+	Page<Board> findByAuthor(Pageable pageable, String author);
 
-	// Page<Board> findByByStatus(String status, Pageable Pageable);
+	
+
+	// List<Board> findByStatus(String status);
+	
+	// Page<Board> findByByStatus(boolean status, Pageable Pageable);
 }

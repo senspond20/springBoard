@@ -77,9 +77,12 @@ public class Board {
 	// private char status
 	// ==> "\u0000", 로 들어간다
 
-	// Y : 공개 , N : 비공개
-	@Column(name ="status", columnDefinition = "CHAR(1) NOT NULL DEFAULT 'Y'")
-	private String status;
+	// 1 True : 공개 , 0 False : 비공개
+	// @Column(name ="status", columnDefinition = "CHAR(1) NOT NULL DEFAULT 'Y'")
+	@Column(name ="status", columnDefinition = "TINYINT(1) NOT NULL DEFAULT 1")
+	// @ColumnDefault("'True'")
+	// @Convert(converter = BooleanToYNConverter.class)
+	private boolean isShow;
 
 	@CreationTimestamp
 	private Date createTime;
@@ -96,7 +99,8 @@ public class Board {
 		super();
 		this.title = title;
 		this.content = content;
-		// this.author = author;
+		this.isShow = true;
+		this.author = author;
 		// this.createTime = LocalDateTime.now();
 		// this.status = "Y";
 	}

@@ -40,7 +40,7 @@ public class InitRunner implements CommandLineRunner{
         logger.info("{}", md.getUserName());
 
         logger.info("insertBoardDummyData : {}", dummyCount);
-        // insertBoardDummyData(dummyCount);
+        insertBoardDummyData(dummyCount);
     }
     
     private void insertBoardDummyData(int count){

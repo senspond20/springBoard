@@ -7,8 +7,11 @@ import com.example.demo.web.service.dto.AccountSaveRequestDto;
 
 public interface AccountService{
     
+    
     List<Account> findAll();
+    
     Account findByEmail(String email);
+
     Account save(AccountSaveRequestDto accountSaveRequestDto);
     
 }

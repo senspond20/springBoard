@@ -25,4 +25,7 @@ public interface BoardService {
     Board getBoardById(Long id);
 
     Page<BoardResponseDto> getBoardList(Pageable pageable);
+
+    Page<BoardResponseDto> getBoardList(Pageable pageable, String author);
+
 }
