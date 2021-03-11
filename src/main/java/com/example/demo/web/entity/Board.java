@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -59,7 +60,9 @@ public class Board {
 	@Column(columnDefinition = "TEXT", nullable = false)
 	private String content;
 	
-	@Column(name = "author")
+	@Column(name = "AUTHOR")
+	// @ManyToOne
+	// @JoinColumn(name ="ACCOUNT_ID")
 	private String author;
 
 	// @OneToMany
@@ -83,15 +86,17 @@ public class Board {
 
 	// @Column(name ="tiemstamp", columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 
+	// @Column(columnDefinition = "TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	@UpdateTimestamp
 	private Timestamp updateTime;
 	
+
 	@Builder // 빌더패턴 적용
 	public Board(String title, String content, String author) {
 		super();
 		this.title = title;
 		this.content = content;
-		this.author = author;
+		// this.author = author;
 		// this.createTime = LocalDateTime.now();
 		// this.status = "Y";
 	}

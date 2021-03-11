@@ -24,4 +24,10 @@ public PageableHandlerMethodArgumentResolverCustomizer customize() {
 }
 ```
 
+## JPA Entity 연관관계
 
+> JPA를 이용한다면 일반적인 테이블간의 관계를 이용하는 것처럼, 엔티티들 사이의 관계를 통해 데이터를 관리할 수 있다. 하지만,JPA를 사용하여 연관관계를 맺기 위해서는 참조 변수를 이용하기떄문에 테이블의연관과 엔티티의연관이 정확하게 일치하지 않는다
+
++ 단반향 연관관계
+
++ 양방향 연관관계

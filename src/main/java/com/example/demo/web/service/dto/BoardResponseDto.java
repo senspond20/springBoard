@@ -19,7 +19,7 @@ public class BoardResponseDto implements ResponseData{
 		super();
 		this.id = Entity.getId();
 		this.title = Entity.getTitle();
-		this.author = Entity.getAuthor();
+		// this.author = Entity.getAuthor();
 	}
 	
 }
