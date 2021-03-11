@@ -25,6 +25,9 @@ public PageableHandlerMethodArgumentResolverCustomizer customize() {
 ```
 + 제대로 적용이 안될때가 있다.
 
+ref : https://velog.io/@minsangk/%EC%BB%A4%EC%84%9C-%EA%B8%B0%EB%B0%98-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-Cursor-based-Pagination-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0
+
+
 ## Paging
 ### **Offset Based Pagination**
 
@@ -36,7 +39,17 @@ SELECT * FROM BOARD ORDER BY ID DESC LIMIT 10, 10;
 SELECT * FROM BOARD ORDER BY ID DESC LIMIT 20, 10;
 ```
 
-ref : https://velog.io/@minsangk/%EC%BB%A4%EC%84%9C-%EA%B8%B0%EB%B0%98-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-Cursor-based-Pagination-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0
++ 문제1. 각각의 페이지를 요청하는 사이에 데이터의 변화가 있는 경우 중복 데이터 노출
+
++ 문제2. 대부분의 RDBMS 에서 OFFSET 쿼리의 퍼포먼스 이슈
+> row 수가 아주 많은 경우 offset 값이 올라갈 수록 쿼리의 퍼포먼스는 이에 비례하여 떨어지게 되어 있습니다.
+
+고려할 시점
+1. 데이터의 변화가 거의 없다시피하여 중복 데이터가 노출될 염려가 없는 경우
+2. 일반 유저에게 노출되는 리스트가 아니라 중복 데이터가 노출되어도 크게 문제 되지 않는 경우
+3. 검색엔진이 인덱싱 할 이유도, 유저가 마지막 페이지를 갈 이유도, 오래 된 데이터의 링크가 공유 될 이유도 없는 경우
+4. 애초에 row 수가 그렇게 많지 않아 특별히 퍼포먼스 걱정이 필요 없는 경우
+
 
 ## **Cursor Based Pagination**
 
@@ -47,12 +60,13 @@ SELECT * FROM BOARD ORDER BY ID DESC LIMIT 10;
 SELECT * FROM BOARD WHERE ID < {이전에 조회한 마지막 id} ORDER BY ID DESC LIMIT 10;
 ```
 
-+ 문제1. 각각의 페이지를 요청하는 사이에 데이터의 변화가 있는 경우 중복 데이터 노출
+
 
 
 + ID가 순차적이지 않고 UUID와 같이 비순차적이면 위의 방법은 의미가 없어진다. 
+그럴때는 생성일과 ID를 기준으로 가져오는 방식을 생각해볼 수 있다.
 
-생성일과 ID를 기준으로 가져오는 방식을 생각해볼 수 있다.
++ JPA - Cursor paging - ref : https://alwayspr.tistory.com/45
 
 ```sql
 SELECT * FROM BOARD ORDER BY CREATE_AT DESC, ID DESC LIMIT 10;
