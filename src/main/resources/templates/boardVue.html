@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
 </head>
 <body>
-    <div  id ="board">
+    <div id ="board">
         <table>
             <thead>
                 <tr>
@@ -28,10 +28,58 @@
             </tbody>
         </table>
         <p>
-            <button @click="prev">Previous</button> | {{currentPage}} | <button v-on:click="next">Next</button>
+            <button @click="prev">Previous</button> | {{currentPage + 1}}/{{maxPage}} | <button v-on:click="next">Next</button>
         </p>
     </div>  
+    <!-- 작성 폼 -->
+    <div id ="boardWirter">
+        <form action="#" id ="frm">
+            <div>
+                <label for="title">Title : </label>
+            </div>
+            <div>
+                <input type="text" id ="title" name="title"/>
+            </div>
+            <div>
+                <label for="content">Content : </label>
+            </div>
+            <div>
+                <textarea name="content" id="content" cols="30" rows="10"></textarea>
+            </div>
+            <div>
+                <input type ="submit" id ="submit" value="전송" />
+            </div>
+        </form>
+    </div>
     <script>
+        (function(){
+            var frm = document.querySelector('#frm');   
+            var sumbit =  document.querySelector('#submit');
+            
+            sumbit.addEventListener('click', function(e){
+                e.preventDefault();
+                var data = new FormData(frm);              
+                console.log(data)  
+ 
+                fetch('/api/board/insert',{
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        title : document.querySelector('#title').value, 
+                        content :  document.querySelector('#content').value          
+                    })
+                }).then(response => response.json())
+                  .then((json)=>{
+                        console.log(json)
+                        board.getBoardPaging();
+                    }).catch((error)=>{
+                        console.log(error)
+                    })
+            })
+        })();
+  
         var board = new Vue({
             el : '#board',
             data :{
@@ -49,7 +97,6 @@
                     if(this.currentPage !=0){
                         this.currentPage--;
                         this.getBoardPaging();
-                        // alert(this.currentPage);
                     }
                 },
                 next : function(){
@@ -57,8 +104,6 @@
                         this.currentPage++;
                         this.getBoardPaging();
                     }
-                
-                    // alert(this.currentPage);
                 },
                 getBoard : function(){
                     fetch('/api/board/all')
@@ -93,7 +138,7 @@
                     fetch('/api/board?' + query)
                     .then(response => response.json())
                     .then((json)=>{
-                        this.maxPage = json.totalPages;
+                        this.maxPage = json.totalPages; // json.last = true 
                         var data = json.content;
                         this.rendar(data)
                         console.log(json)
@@ -103,8 +148,7 @@
                 },
             }
         });
-        // board.getBoard();
-        // board.getBoardPaging();
+
     </script>
 </body>
 </html>

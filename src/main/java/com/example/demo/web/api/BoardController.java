@@ -75,6 +75,11 @@ public class BoardController {
        return boardService.getBoardList(pageable, author);
     }
 
+    @GetMapping("/test")
+    public Page<BoardResponseDto> getBoardList(Pageable pageable){
+        return boardService.getBoardList(pageable);
+    }
+
     
     // --------------  update -------------------
     

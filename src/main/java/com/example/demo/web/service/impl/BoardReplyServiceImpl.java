@@ -17,6 +17,7 @@ public class BoardReplyServiceImpl implements BoardReplyService{
 
     private final BoardReplyRepository boardReplyRepository;
 
+ 
     @Override
     public BoardReply save(BoardReplySaveRequestDto dto) {
         return boardReplyRepository.save(dto.toEntity());
