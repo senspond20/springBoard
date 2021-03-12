@@ -28,7 +28,7 @@ public class InitRunner implements CommandLineRunner{
     @Autowired
     private BoardReplyService boardReplyService;
 
-    private final int dummyCount = 11;
+    private final int dummyCount = 30;
     Logger logger = LoggerFactory.getLogger(InitRunner.class);
 
     @Override

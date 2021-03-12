@@ -8,60 +8,100 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
 </head>
 <body>
-    <table id ="board">
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Title</th>
-                <th>Author</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for='post in posts'>
-                <td>{{post.id}}</td>
-                <td>{{post.title}}</td>
-                <td>{{post.author}}</td>
-            </tr>
-        </tbody>
-    </table>
-    <p>
-        <button @click="prev">Previous</button> || <button @click="next">Next</button>
-    </p>
-
+    <div  id ="board">
+        <table>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for='post in posts'>
+                    <td>{{post.id}}</td>
+                    <td>{{post.title}}</td>
+                    <td>{{post.author}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            <button @click="prev">Previous</button> | {{currentPage}} | <button v-on:click="next">Next</button>
+        </p>
+    </div>  
     <script>
         var board = new Vue({
             el : '#board',
             data :{
                 posts : [],
-                currentPage : 0
+                currentPage : 0,
+                sort : "desc",
+                size : 10,
+                maxPage : 0
+            },
+            created(){
+                this.getBoardPaging();
             },
             methods :{
                 prev : function(){
-                    this.currentPage--;
+                    if(this.currentPage !=0){
+                        this.currentPage--;
+                        this.getBoardPaging();
+                        // alert(this.currentPage);
+                    }
                 },
                 next : function(){
-                    this.currentPage++;
+                    if(this.currentPage < this.maxPage -1 ){
+                        this.currentPage++;
+                        this.getBoardPaging();
+                    }
+                
+                    // alert(this.currentPage);
                 },
                 getBoard : function(){
                     fetch('/api/board/all')
                     .then(response => response.json())
                     .then((json)=>{
-                        json.forEach(element => {
+                        this.rendar(json)
+                        // console.log(json)
+                    }).catch((error)=>{
+                        console.log(error)
+                    })
+                },
+                rendar : function(data ={}){
+                    this.posts = [];
+                    data.forEach(element => {
                             this.posts.push({
                                 id : element.id,
                                 title : element.title,
                                 author : element.author
                             })
                         });
-                   
+                },
+                getBoardPaging :function(){
+                    var params = {
+                        page : this.currentPage,
+                        size : this.size,
+                        sort : this.sort
+                    }
+                    var esc = encodeURIComponent;
+                    var query = Object.keys(params)
+                        .map(k => esc(k) + '=' + esc(params[k])).join('&');
+                    fetch('/api/board?' + query)
+                    .then(response => response.json())
+                    .then((json)=>{
+                        this.maxPage = json.totalPages;
+                        var data = json.content;
+                        this.rendar(data)
                         console.log(json)
                     }).catch((error)=>{
                         console.log(error)
                     })
-                }
+                },
             }
         });
-        board.getBoard();
+        // board.getBoard();
+        // board.getBoardPaging();
     </script>
 </body>
 </html>
