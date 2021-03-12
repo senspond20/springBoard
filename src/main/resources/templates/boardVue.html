@@ -8,7 +8,15 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
 </head>
 <body>
-    <div id ="board">
+
+    <!-- 게시판 목록 -->
+    <article id ="board_list">
+        <h3>Board</h3>
+        <select name="" id="changeSize" @change ="changeSize">
+            <option value="5">Limit 5</option>
+            <option value="10" selected>Limit 10</option>
+            <option value="20">Limit 20</option>
+        </select>  
         <table>
             <thead>
                 <tr>
@@ -19,20 +27,27 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for='post in posts'>
-                    <td>{{post.id}}</td>
-                    <td>{{post.title}}</td>
+                <tr v-for='(post, idx) in posts'>
+                    <td class="postid">{{post.id}}</td>
+                    <td @click="getDetail" style="cursor: pointer;">{{post.title}}</td>
                     <td>{{post.author}}</td>
                     <td>{{post.date}}</td>
                 </tr>
             </tbody>
         </table>
-        <p>
+        <div class="board_list_btn">
             <button @click="prev">Previous</button> | {{currentPage + 1}}/{{maxPage}} | <button v-on:click="next">Next</button>
-        </p>
-    </div>  
+        </div>
+
+    </article>  
+
+    <!-- 게시판 상세 -->
+    <article id="board_detail">
+        
+    </article>
+
     <!-- 작성 폼 -->
-    <div id ="boardWirter">
+    <article id ="board_wirter">
         <form action="#" id ="frm">
             <div>
                 <label for="title">Title : </label>
@@ -50,7 +65,9 @@
                 <input type ="submit" id ="submit" value="전송" />
             </div>
         </form>
-    </div>
+    </article>
+
+
     <script>
         (function(){
             var frm = document.querySelector('#frm');   
@@ -81,7 +98,7 @@
         })();
   
         var board = new Vue({
-            el : '#board',
+            el : '#board_list',
             data :{
                 posts : [],
                 currentPage : 0,
@@ -105,15 +122,19 @@
                         this.getBoardPaging();
                     }
                 },
-                getBoard : function(){
-                    fetch('/api/board/all')
-                    .then(response => response.json())
-                    .then((json)=>{
-                        this.rendar(json)
-                        // console.log(json)
-                    }).catch((error)=>{
-                        console.log(error)
-                    })
+                getDetail : function(){
+                    console.log(this._self)
+                //    var postid = document.querySelectorAll('.postid')
+                    // console.log(postid);
+
+                    // this.getBoard();
+                },
+                changeSize: function(){
+                    var newSize = Number(document.querySelector('#changeSize').value);
+                    console.log(newSize);
+                    this.size = newSize;
+                    this.currentPage = 0;
+                    this.getBoardPaging();
                 },
                 rendar : function(data ={}){
                     this.posts = [];
@@ -125,6 +146,16 @@
                                 date : element.date
                             })
                         });
+                },
+                getBoard : function(no){
+                    fetch('/api/board/' + no)
+                    .then(response => response.json())
+                    .then((json)=>{
+                        var area = document.querySelector('#board_detail');
+                        area.textContent = json;
+                    }).catch((error)=>{
+                        console.log(error)
+                    })
                 },
                 getBoardPaging :function(){
                     var params = {
