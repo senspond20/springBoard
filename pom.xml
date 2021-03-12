@@ -94,6 +94,13 @@
 				<configuration>
 					<excludes>
 						<exclude>
+							<goals>
+								<goal>process</goal>
+							</goals>
+							  <outputDirectory>target/generated-sources/java</outputDirectory>
+							  <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+						</exclude>	
+						<exclude>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 						</exclude>

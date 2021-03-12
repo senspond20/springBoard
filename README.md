@@ -112,7 +112,31 @@ public class CursorResult<T> {
     <artifactId>querydsl-jpa</artifactId>
 </dependency>
 ```
-
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+                <excludes>
+                    <exclude>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                            <outputDirectory>target/generated-sources/java</outputDirectory>
+                            <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+                    </exclude>	
+                    <exclude>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok</artifactId>
+                    </exclude>
+                </excludes>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
 ```java
 @Configuration
 public class QuerydslConfig {

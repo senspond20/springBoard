@@ -2,6 +2,8 @@ package com.example.demo.web.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import com.example.demo.web.entity.Board;
 import com.example.demo.web.repository.BoardRepository;
 import com.example.demo.web.service.BoardService;
@@ -32,12 +34,18 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
+    @Transactional
     public Board update(BoardUpdateRequestDto boardUpdateRequestDto) {
         Long id = boardUpdateRequestDto.getId();
     	Board board = boardRepository.findById(id)
 				                     .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
 		board.update(boardUpdateRequestDto.getTitle(), boardUpdateRequestDto.getContent());
-        return boardRepository.save(board);
+        
+        // @Transactional 이 붙어야 board.update 로 update query가 붙는다.
+        // @Transactional 이 붙지 않으면 수동
+        // return boardRepository.save(board); 
+
+        return board;
         // return new BoardResponseDto(boardRepository.save(board));
     }
 
