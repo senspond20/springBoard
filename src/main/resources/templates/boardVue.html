@@ -15,6 +15,7 @@
                     <th>No.</th>
                     <th>Title</th>
                     <th>Author</th>
+                    <th>Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,6 +23,7 @@
                     <td>{{post.id}}</td>
                     <td>{{post.title}}</td>
                     <td>{{post.author}}</td>
+                    <td>{{post.date}}</td>
                 </tr>
             </tbody>
         </table>
@@ -74,7 +76,8 @@
                             this.posts.push({
                                 id : element.id,
                                 title : element.title,
-                                author : element.author
+                                author : element.author,
+                                date : element.date
                             })
                         });
                 },

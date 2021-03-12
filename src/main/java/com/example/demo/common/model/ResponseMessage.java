@@ -1,4 +1,4 @@
-package com.example.demo.common.dto;
+package com.example.demo.common.model;
 
 import java.time.LocalTime;
 import lombok.Getter;
