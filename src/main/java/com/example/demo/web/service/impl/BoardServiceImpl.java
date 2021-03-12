@@ -64,5 +64,6 @@ public class BoardServiceImpl implements BoardService{
         Page<Board> p = boardRepository.findByAuthor(pageable, author);
 		return p.map(item-> new BoardResponseDto(item));
     }
+
     
 }

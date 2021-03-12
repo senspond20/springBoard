@@ -74,6 +74,21 @@ SELECT * FROM BOARD ORDER BY CREATE_AT DESC, ID DESC LIMIT 10;
 SELECT * FROM BOARD WHERE (CREATE_AT = {CREATE_AT} && ID < {ID}) OR (CREATE_AT < {CREATE_AT}) ORDER BY CREATE_AT DESC, ID DESC LIMIT 10;
 ```
 
+```java
+@Getter
+@Setter
+@ToString
+public class CursorResult<T> {
+    private List<T> values;
+    private Boolean hasNext;
+
+    public CursorResult(List<T> values, Boolean hasNext) {
+        this.values = values;
+        this.hasNext = hasNext;
+    }
+}
+```
+
 
 ## JPA Entity 연관관계
 
@@ -82,3 +97,32 @@ SELECT * FROM BOARD WHERE (CREATE_AT = {CREATE_AT} && ID < {ID}) OR (CREATE_AT <
 + 단반향 연관관계
 
 + 양방향 연관관계
+
+
+## Querydsl
+
+```xml
+<dependency>
+    <groupId>com.querydsl</groupId>
+    <artifactId>querydsl-apt</artifactId>
+    <scope>provided</scope>
+</dependency>
+<dependency>
+    <groupId>com.querydsl</groupId>
+    <artifactId>querydsl-jpa</artifactId>
+</dependency>
+```
+
+```java
+@Configuration
+public class QuerydslConfig {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Bean
+    public JPAQueryFactory jpaQueryFactory() {
+        return new JPAQueryFactory(entityManager);
+    }    
+}
+```

@@ -3,7 +3,7 @@ package com.example.demo.web.service.dto;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.example.demo.common.dto.ResponseData;
+import com.example.demo.common.model.ResponseData;
 import com.example.demo.web.entity.Board;
 
 import lombok.Getter;
